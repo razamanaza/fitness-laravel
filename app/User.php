@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Sleep');
     }
+
+    public function moods()
+    {
+        return $this->hasMany('App\Mood');
+    }
 }
