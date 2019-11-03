@@ -56,4 +56,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Mood');
     }
+
+    public function weights()
+    {
+        return $this->hasMany('App\Weight');
+    }
 }
