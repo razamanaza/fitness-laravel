@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Workout');
     }
+
+    public function sleeps()
+    {
+        return $this->hasMany('App\Sleep');
+    }
 }
