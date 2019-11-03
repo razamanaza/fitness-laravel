@@ -16,7 +16,7 @@ class WeightsTableSeeder extends Seeder
         $faker = Faker::create();
         foreach (range(1, 3) as $user_id) {
             $now = new DateTime('now');
-            $oneday = new DateInterval('P1D');
+            $oneday = new DateInterval('P7D');
             $currentDate = new DateTime('now');
             $currentDate->sub(new DateInterval('P2M'));
             $baseweight = $faker->numberBetween($min = 50, $max = 100);
