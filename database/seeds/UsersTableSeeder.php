@@ -13,8 +13,17 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('users')->insert([
+            'name' => 'Aleksandr Gordeev',
+            'email' => 'razamanaza@gmail.com',
+            'password' => bcrypt('password'),
+            'height' => 183,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+
         $faker = Faker::create();
-        foreach (range(1, 3) as $index) {
+        foreach (range(1, 2) as $index) {
             DB::table('users')->insert([
                 'name' => $faker->name,
                 'email' => $faker->email,
