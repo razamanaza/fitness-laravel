@@ -1,0 +1,26 @@
+.navbar {
+  padding: 0;
+}
+.card-header {
+  background-color: #8c0003;
+  color: white;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-align: center;
+}
+.chart {
+  display: inline-block;
+}
+.charts .row {
+  margin-bottom: 50px;
+}
+.mr-auto li a {
+  color: #16171b;
+  text-transform: uppercase;
+  margin-right: 10px;
+}
