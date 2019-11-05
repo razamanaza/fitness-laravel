@@ -51,8 +51,20 @@ class HomeController extends Controller
     //Data for activitiesByDays
     $now = new \DateTime('now');
     $date = new \DateTime('now');
-    $date->modify('-15 days');
-    $activities = [["Day", "Average time", "Your time"]];
+    $date->modify('-7 days');
+    $activities = [["Days", "Average time", "Your time"]];
+    while ($date < $now) {
+      $average = round(Workout::where('date', $date->format('Y-m-d'))->whereNotIn('user_id', [$user->id])->avg('duration'));
+      $my = round($user->workouts->where('date', $date->format('Y-m-d'))->avg('duration'));
+      array_push($activities, [$date->format('d.m'), $average, $my]);
+      $date->modify('+1 day');
+    }
+
+    //Data for caloriesTrend
+    $now = new \DateTime('now');
+    $date = new \DateTime('now');
+    $date->modify('-30 days');
+    $calories = [["Days", "Junk Food", "Alcohol"]];
     while ($date < $now) {
       $average = round(Workout::where('date', $date->format('Y-m-d'))->whereNotIn('user_id', [$user->id])->avg('duration'));
       $my = round($user->workouts->where('date', $date->format('Y-m-d'))->avg('duration'));
@@ -63,6 +75,7 @@ class HomeController extends Controller
     return view('home', compact('weight', 'mood'))
       ->with('weight_borders', json_encode($weight_borders))
       ->with('workouts', json_encode($workouts))
-      ->with('activities', json_encode($activities));
+      ->with('activities', json_encode($activities))
+      ->with('activities', json_encode($calories));
   }
 }

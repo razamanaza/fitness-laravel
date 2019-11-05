@@ -85,12 +85,7 @@
     var data = google.visualization.arrayToDataTable(activities);
 
     var options = {
-      animation: {
-        duration: 10000,
-        easing: "linear",
-        startup: true
-      },
-      height: 300
+      height: 200,
     };
 
     var chart = new google.charts.Bar(
