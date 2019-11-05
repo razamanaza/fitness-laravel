@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\WorkoutType;
 use App\Workout;
+use App\FoodType;
+use App\Food;
 
 class HomeController extends Controller
 {
@@ -65,10 +67,11 @@ class HomeController extends Controller
     $date = new \DateTime('now');
     $date->modify('-30 days');
     $calories = [["Days", "Junk Food", "Alcohol"]];
+    $alcohols = FoodType::where('is_alcohol', '1')->pluck('id');
     while ($date < $now) {
-      $average = round(Workout::where('date', $date->format('Y-m-d'))->whereNotIn('user_id', [$user->id])->avg('duration'));
-      $my = round($user->workouts->where('date', $date->format('Y-m-d'))->avg('duration'));
-      array_push($activities, [$date->format('d.m'), $average, $my]);
+      $alcohol = $user->foods->where('date', $date->format('Y-m-d'))->whereIn('food_type_id', $alcohols)->sum('calories');
+      $food = $user->foods->where('date', $date->format('Y-m-d'))->whereNotIn('food_type_id', $alcohols)->sum('calories');
+      array_push($calories, [$date->format('d.m'), $alcohol, $food]);
       $date->modify('+1 day');
     }
 
@@ -76,6 +79,6 @@ class HomeController extends Controller
       ->with('weight_borders', json_encode($weight_borders))
       ->with('workouts', json_encode($workouts))
       ->with('activities', json_encode($activities))
-      ->with('activities', json_encode($calories));
+      ->with('calories', json_encode($calories));
   }
 }

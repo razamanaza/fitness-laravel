@@ -95,42 +95,8 @@
   }
 
   function caloriesTrend() {
-    var data = new google.visualization.DataTable();
-    data.addColumn("number", "Days");
-    data.addColumn("number", "Junk Food");
-    data.addColumn("number", "Alcohol");
-    data.addRows([
-      [0, 500, 100],
-      [1, 300, 0],
-      [2, 600, 500],
-      [3, 1200, 0],
-      [4, 200, 0],
-      [5, 0, 0],
-      [6, 600, 500],
-      [7, 800, 400],
-      [8, 500, 0],
-      [9, 450, 0],
-      [10, 800, 0],
-      [11, 750, 0],
-      [12, 1000, 400],
-      [13, 200, 100],
-      [14, 500, 100],
-      [15, 200, 200],
-      [16, 650, 0],
-      [17, 500, 0],
-      [18, 1000, 200],
-      [19, 800, 100],
-      [20, 500, 200],
-      [21, 650, 150],
-      [22, 350, 50],
-      [23, 240, 320],
-      [24, 540, 0],
-      [25, 220, 0],
-      [26, 550, 220],
-      [27, 320, 180],
-      [28, 400, 0],
-      [29, 200, 0]
-    ]);
+    var calories = <?php echo $calories; ?>;
+    var data = google.visualization.arrayToDataTable(calories);
 
     var options = {
       hAxis: {
