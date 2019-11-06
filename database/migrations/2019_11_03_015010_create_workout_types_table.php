@@ -6,28 +6,29 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateWorkoutTypesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('workout_types', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name')->unique();
-            $table->boolean('has_distance');
-            $table->timestamps();
-        });
-    }
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    Schema::create('workout_types', function (Blueprint $table) {
+      $table->increments('id');
+      $table->string('name')->unique();
+      $table->boolean('has_distance')->default(false);
+      $table->string('color');
+      $table->timestamps();
+    });
+  }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('workout_types');
-    }
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::dropIfExists('workout_types');
+  }
 }

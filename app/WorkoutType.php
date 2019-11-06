@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class WorkoutType extends Model
 {
-    protected $fillable = [
-        'name', 'has_distance'
-    ];
+  protected $fillable = [
+    'name', 'has_distance', 'color'
+  ];
 
-    public function workouts()
-    {
-        return $this->hasMany('App\Workout');
-    }
+  public function workouts()
+  {
+    return $this->hasMany('App\Workout');
+  }
 }
