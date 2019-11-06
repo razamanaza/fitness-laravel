@@ -46,3 +46,7 @@
   background-position: left bottom;
   background-repeat: no-repeat;
 }
+.new-workout-type,
+.new-food-type {
+  margin: 30px 0;
+}

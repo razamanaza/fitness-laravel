@@ -108,6 +108,9 @@ class HomeController extends Controller
 
   public function types()
   {
-    return view('typesview');
+    $user = auth()->user();
+    $workout_types = \App\WorkoutType::all();
+    $food_types = \App\FoodType::all();
+    return view('typesview', compact('workout_types', 'food_types'));
   }
 }
