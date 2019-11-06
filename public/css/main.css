@@ -5,19 +5,15 @@
   background-color: #8c0003;
   color: white;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  text-align: center;
-}
 .chart {
   display: inline-block;
 }
 .charts .row {
   margin-bottom: 50px;
+}
+.charts h2 {
+  text-align: center;
+  font-size: 1.2rem;
 }
 .mr-auto li a {
   color: #16171b;
@@ -26,4 +22,27 @@ h6 {
 }
 #activitiesByDays {
   margin-top: 100px;
+}
+.targets {
+  margin-bottom: 50px;
+  position: relative;
+}
+.targets .new-target {
+  position: absolute;
+  top: 0;
+  right: 10px;
+}
+.targets .list-group-item form {
+  display: inline-block;
+  margin-right: 20px;
+}
+.coach {
+  min-height: 200px;
+  margin-left: 215px;
+  margin-bottom: -20px;
+}
+.dashboard {
+  background-image: url("../img/coach.jpg");
+  background-position: left bottom;
+  background-repeat: no-repeat;
 }

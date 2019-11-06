@@ -132,12 +132,15 @@
       <div class="card">
         <div class="card-header">Dashboard</div>
 
-        <div class="card-body">
+        <div class="card-body dashboard">
           @if (session('status'))
           <div class="alert alert-success" role="alert">
             {{ session('status') }}
           </div>
           @endif
+          <div class="targets">
+            @include('targets.index')
+          </div>
           <div class="charts">
             <div class="row">
               <div class="col-md-3 text-center">
@@ -163,6 +166,16 @@
                 <h2>Excessive Calories Consumption</h2>
               </div>
             </div>
+          </div>
+          <div class="coach">
+            @php $count = count($coach_motd) @endphp
+            @if($count == 0)
+            <p class="alert alert-warning">No sweet without sweat. How about a walk?</p>
+            @else
+            @foreach($coach_motd as $motd)
+            <p class="alert {{$motd[1]}}">{{$motd[0]}}</p>
+            @endforeach
+            @endif
           </div>
         </div>
       </div>

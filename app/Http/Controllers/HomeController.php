@@ -29,6 +29,9 @@ class HomeController extends Controller
   {
     $user = auth()->user();
 
+    //Get all user's targets
+    $targets = $user->targets->all();
+
     //Data for Weight Index Chart
     $weight = $user->weights->last()->weight;
     $pheight = pow($user->height / 100, 2);
@@ -55,9 +58,11 @@ class HomeController extends Controller
     $date = new \DateTime('now');
     $date->modify('-7 days');
     $activities = [["Days", "Average time", "Your time"]];
+    $activities_sum = 0;
     while ($date < $now) {
       $average = round(Workout::where('date', $date->format('Y-m-d'))->whereNotIn('user_id', [$user->id])->avg('duration'));
       $my = round($user->workouts->where('date', $date->format('Y-m-d'))->avg('duration'));
+      $activities_sum += $my;
       array_push($activities, [$date->format('d.m'), $average, $my]);
       $date->modify('+1 day');
     }
@@ -65,20 +70,44 @@ class HomeController extends Controller
     //Data for caloriesTrend
     $now = new \DateTime('now');
     $date = new \DateTime('now');
-    $date->modify('-30 days');
+    $date->modify('-7 days');
     $calories = [["Days", "Junk Food", "Alcohol"]];
     $alcohols = FoodType::where('is_alcohol', '1')->pluck('id');
+    $calories_sum = 0;
+    $drinks_sum = 0;
     while ($date < $now) {
       $alcohol = $user->foods->where('date', $date->format('Y-m-d'))->whereIn('food_type_id', $alcohols)->sum('calories');
       $food = $user->foods->where('date', $date->format('Y-m-d'))->whereNotIn('food_type_id', $alcohols)->sum('calories');
+      $drinks_sum += $user->foods->where('date', $date->format('Y-m-d'))->whereIn('food_type_id', $alcohols)->sum('drinks');
+      $calories_sum += $alcohol + $food;
       array_push($calories, [$date->format('d.m'), $alcohol, $food]);
       $date->modify('+1 day');
     }
 
-    return view('home', compact('weight', 'mood'))
+    //Coach messages
+    $coach_motd = [];
+    if ($activities_sum > 120) {
+      array_push($coach_motd, ["You've done well this week. Dwayne envy your results!!!", "alert-success"]);
+    }
+    if ($calories_sum > 3000) {
+      array_push($coach_motd, ["If you eat too much junk food you will never look like me.", "alert-warning"]);
+    }
+    if ($mood < 3) {
+      array_push($coach_motd, ["Don't take it too seriously. Cheer up!", "alert-warning"]);
+    }
+    if ($drinks_sum > 13) {
+      array_push($coach_motd, ["You drink too much. Wanna talk about it?", "alert-danger"]);
+    }
+
+    return view('home', compact('weight', 'mood', 'targets', 'coach_motd'))
       ->with('weight_borders', json_encode($weight_borders))
       ->with('workouts', json_encode($workouts))
       ->with('activities', json_encode($activities))
       ->with('calories', json_encode($calories));
+  }
+
+  public function types()
+  {
+    return view('typesview');
   }
 }
