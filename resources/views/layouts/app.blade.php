@@ -20,7 +20,7 @@
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <link href="{{ asset('css/main.css') }}" rel="stylesheet">
-  @yield('charts')
+  @yield('head')
 </head>
 
 <body>

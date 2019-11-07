@@ -13,9 +13,9 @@
   <tr>
     <td class="align-left">{{$food_type->name}}</td>
     <td><input type="checkbox" {{$food_type->is_alcohol ? "checked" : ""}} onclick="return false;"></td>
-    <td class="align-middle"><a href="{{url('/workout-types/' . $food_type->id . '/edit')}}" class="btn  btn-success">Edit</a></td>
+    <td class="align-middle"><a href="{{url('/food-types/' . $food_type->id . '/edit')}}" class="btn  btn-success">Edit</a></td>
     <td class="align-middle">
-      <button class="btn btn-danger" data-toggle="modal" data-target="#alert" data-food_type_id="{{ $food_type->id }}">Delete</button>
+      <button class="btn btn-danger" data-toggle="modal" data-target="#alert" data-type_id="{{ $food_type->id }}" data-route="food-types">Delete</button>
     </td>
   </tr>
   @endforeach

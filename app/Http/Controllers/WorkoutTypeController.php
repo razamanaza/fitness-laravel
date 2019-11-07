@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class WorkoutTypeController extends Controller
 {
+  public function __construct()
+  {
+    $this->middleware('auth');
+  }
   /**
    * Display a listing of the resource.
    *
@@ -35,11 +39,12 @@ class WorkoutTypeController extends Controller
    */
   public function store(Request $request)
   {
-    WorkoutType::create($request->validate([
+    $data = request()->validate([
       'name' => ['required', 'regex:/^(\d|\w|\s|-)+$/i'],
-      'has_distance' => ['boolean'],
       'color' => ['required', 'regex:/^#(\d|\w){6}$/i'],
-    ]));
+    ]);
+    $data['has_distance'] = ($request->has_distance == "true" ? true : false);
+    WorkoutType::create($data);
     return redirect('/types');
   }
 
@@ -78,7 +83,7 @@ class WorkoutTypeController extends Controller
       'name' => ['required', 'regex:/^(\d|\w|\s|-)+$/i'],
       'color' => ['required', 'regex:/^#(\d|\w){6}$/i'],
     ]);
-    $data['has_distance'] = ($request->has_distance ? true : false);
+    $data['has_distance'] = ($request->has_distance  ? true : false);
     $workout_type->update($data);
     return redirect('/types');
   }

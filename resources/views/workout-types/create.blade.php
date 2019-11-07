@@ -14,7 +14,7 @@
       <label for="color">Color</label>
     </div>
     <div class="form-check">
-      <input type="checkbox" id="has_distance" class="form-check-input" name="has_distance" value="{{ old('has_distance') }}">
+      <input type="checkbox" id="has_distance" class="form-check-input" name="has_distance" value="true">
       <label for="has_distance" class="form-check-label">Has distance?</label>
     </div>
     <div class="form-group">
