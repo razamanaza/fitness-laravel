@@ -113,4 +113,29 @@ class HomeController extends Controller
     $food_types = \App\FoodType::all();
     return view('typesview', compact('workout_types', 'food_types'));
   }
+
+  public function calendar()
+  {
+    $user = auth()->user();
+    $date = (new \DateTime('now'))->modify('first day of this month')->format('Y-m-d');
+    $workouts = \App\Workout::where('user_id', $user->id)->where('date', '>=', $date)->get();
+    $events = [];
+    if ($workouts->count()) {
+      foreach ($workouts as $workout) {
+        $events[] = \Calendar::event(
+          $workout->name,
+          true,
+          new \DateTime($workout->date),
+          new \DateTime($workout->date . '+1 day'),
+          null,
+          [
+            'color' => $workout->workout_type->color,
+            'textColor' => 'white',
+          ]
+        );
+      }
+    }
+    $calendar = \Calendar::addEvents($events);
+    return view('calendar', compact('calendar'));
+  }
 }

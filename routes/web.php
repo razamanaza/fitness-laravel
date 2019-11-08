@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/data', 'HomeController@index')->name('data');
-Route::get('/calendar', 'HomeController@index')->name('calendar');
+Route::get('/calendar', 'HomeController@calendar')->name('calendar');
 Route::get('/recordadd', 'HomeController@index')->name('recordadd');
 Route::get('/types', 'HomeController@types')->name('types');
 
