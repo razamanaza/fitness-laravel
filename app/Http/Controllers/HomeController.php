@@ -54,12 +54,12 @@ class HomeController extends Controller
     }
 
     //Data for activitiesByDays
-    $now = new \DateTime('now');
     $date = new \DateTime('now');
+    $now = new \DateTime('now');
     $date->modify('-7 days');
     $activities = [["Days", "Average time", "Your time"]];
     $activities_sum = 0;
-    while ($date < $now) {
+    while ($date <= $now) {
       $average = round(Workout::where('date', $date->format('Y-m-d'))->whereNotIn('user_id', [$user->id])->avg('duration'));
       $my = round($user->workouts->where('date', $date->format('Y-m-d'))->avg('duration'));
       $activities_sum += $my;
@@ -68,14 +68,14 @@ class HomeController extends Controller
     }
 
     //Data for caloriesTrend
-    $now = new \DateTime('now');
     $date = new \DateTime('now');
+    $now = new \DateTime('now');
     $date->modify('-7 days');
     $calories = [["Days", "Junk Food", "Alcohol"]];
     $alcohols = FoodType::where('is_alcohol', '1')->pluck('id');
     $calories_sum = 0;
     $drinks_sum = 0;
-    while ($date < $now) {
+    while ($date <= $now) {
       $alcohol = $user->foods->where('date', $date->format('Y-m-d'))->whereIn('food_type_id', $alcohols)->sum('calories');
       $food = $user->foods->where('date', $date->format('Y-m-d'))->whereNotIn('food_type_id', $alcohols)->sum('calories');
       $drinks_sum += $user->foods->where('date', $date->format('Y-m-d'))->whereIn('food_type_id', $alcohols)->sum('drinks');

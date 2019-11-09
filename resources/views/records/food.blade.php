@@ -43,7 +43,7 @@
   </div>
 
   <div class="form-group">
-    <label for="food-calories">Burned</label>
+    <label for="food-calories">Calories</label>
     <div class="form-row align-items-left">
       <div class="col-auto">
         <div class="input-group mb-2">

@@ -9,7 +9,7 @@
       <textarea name="target" id="target" class="form-control {{ $errors->has('target') ? 'is-invalid' : '' }}" rows="3"></textarea>
     </div>
     <div class="form-group">
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary">Set Target</button>
     </div>
   </form>
   @include('errors')

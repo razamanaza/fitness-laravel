@@ -7,7 +7,7 @@
       id="workout-date"
       class="form-control {{ $errors->has('date') ? 'is-invalid' : '' }}"
       name="date"
-      value="{{ old('date') ? old('date') : date("Y-m-d") }}"
+      value="{{ old('date') ? old('date') : $currentDate }}"
       required
     >
   </div>
