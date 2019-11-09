@@ -14,6 +14,41 @@
     }
   }
 </script>
+<script>
+  function foodDrinksCheck() {
+    var food_types = <?php echo json_encode($food_types)?>;
+    var food_id = $('#food-name').val();
+    var food = food_types.find(e => {return e.id == food_id});
+    if(food.is_alcohol) {
+      $('#food-drinks-fg').removeClass('hide');
+    } else {
+      $('#food-drinks-fg').addClass('hide');
+      $('#food-drinks').val('');
+    }
+  }
+</script>
+<script>
+  function otherFormChange(){
+    var othertype = $('#other-type').val();
+    var action = '{{url("/")}}' + '/' + othertype
+    $('#other-form').attr('action', action);
+  }
+</script>
+<script>
+//Script to change default opened tab depending on the url
+window.onload = function(){
+
+  var url = document.location.toString();
+  if (url.match('#')) {
+      $('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
+  }
+
+  //Change hash for page-reload
+  $('.nav-tabs a[href="#' + url.split('#')[1] + '"]').on('shown', function (e) {
+      window.location.hash = e.target.hash;
+  });
+}
+</script>
 @endsection
 
 @section('content')

@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sleep extends Model
 {
-    public function user()
+  protected $fillable = [
+    'date', 'minutes', 'user_id'
+  ];
+  public function user()
     {
         return $this->belongsTo('App\User');
     }
