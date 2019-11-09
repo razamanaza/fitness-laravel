@@ -20,8 +20,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/data', 'HomeController@index')->name('data');
-Route::get('/calendar', 'HomeController@calendar')->name('calendar');
-Route::get('/recordadd', 'HomeController@index')->name('recordadd');
+Route::get('/calendar', 'HomeController@calendar');
+Route::get('/recordadd', 'HomeController@recordAdd');
 Route::get('/types', 'HomeController@types')->name('types');
 
 Route::get('/targets/create', 'TargetController@create')->name('target.create');
@@ -30,3 +30,9 @@ Route::delete('/targets/{target}', 'TargetController@destroy');
 
 Route::resource('workout-types', 'WorkoutTypeController');
 Route::resource('food-types', 'FoodTypeController');
+
+Route::post('/workouts', 'RecordController@workout');
+Route::post('/foods', 'RecordController@food');
+Route::post('/moods', 'RecordController@mood');
+Route::post('/weights', 'RecordController@weight');
+Route::post('/sleeps', 'RecordController@sleep');

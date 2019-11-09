@@ -137,4 +137,11 @@ class HomeController extends Controller
     $calendar = \Calendar::addEvents($events);
     return view('calendar', compact('calendar'));
   }
+
+  public function recordAdd()
+  {
+    $workout_types = WorkoutType::all();
+    $food_types = FoodType::all();
+    return view('recordadd', compact('workout_types', 'food_types'));
+  }
 }

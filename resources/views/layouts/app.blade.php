@@ -40,19 +40,19 @@
           <ul class="navbar-nav mr-auto">
             @auth
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('home') }}">{{ __('Dashboard') }}</a>
+              <a class="nav-link" href="{{ url('/home') }}">{{ __('Dashboard') }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('data') }}">{{ __('Detailed Data') }}</a>
+              <a class="nav-link" href="{{ url('/data') }}">{{ __('Detailed Data') }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('calendar') }}">{{ __('Calendar') }}</a>
+              <a class="nav-link" href="{{ url('/calendar') }}">{{ __('Calendar') }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('recordadd') }}">{{ __('Add Record') }}</a>
+              <a class="nav-link" href="{{ url('/recordadd') }}">{{ __('Add Record') }}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('types') }}">{{ __('Food / Workout Types') }}</a>
+              <a class="nav-link" href="{{ url('/types') }}">{{ __('Food / Workout Types') }}</a>
             </li>
             @endauth
           </ul>
@@ -71,7 +71,7 @@
             @endif
             @else
             <li class="nav-item dropdown">
-              <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+              <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                 {{ Auth::user()->name }} <span class="caret"></span>
               </a>
 
