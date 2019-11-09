@@ -117,13 +117,12 @@ class HomeController extends Controller
   public function calendar()
   {
     $user = auth()->user();
-    $date = (new \DateTime('now'))->modify('first day of this month')->format('Y-m-d');
-    $workouts = \App\Workout::where('user_id', $user->id)->where('date', '>=', $date)->get();
+    $workouts = \App\Workout::where('user_id', $user->id)->get();
     $events = [];
     if ($workouts->count()) {
       foreach ($workouts as $workout) {
         $events[] = \Calendar::event(
-          $workout->name,
+          $workout->workout_type->name . ": " . $workout->duration . " min",
           true,
           new \DateTime($workout->date),
           new \DateTime($workout->date . '+1 day'),
