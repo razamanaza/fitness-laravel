@@ -1,6 +1,22 @@
 @extends('layouts.app')
 
 @section('head')
+<link rel="stylesheet" href="{{asset('css/animate.min.css')}}">
+<script src="{{asset('js/jquery.waypoints.min.js')}}"></script>
+<script>
+$( document ).ready(function() {
+  var waypoint = new Waypoint({
+    element: document.getElementById('coach'),
+    handler: function(direction) {
+        $('#coach-img').removeClass('invisible');
+        $('#coach-img').addClass('bounceInLeft');
+        $('.alert').addClass('lightSpeedIn');
+        $('.alert').removeClass('invisible');
+    },
+    offset: 200
+  })
+});
+</script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
   google.charts.load("current", {
@@ -31,7 +47,6 @@
     var weight = <?php echo $weight; ?>;
     var weight_borders = <?php echo $weight_borders; ?>;
     var maxweigh = weight_borders.red > weight ? weight_borders.red : weight;
-    console.log(weight_borders);
     var data = google.visualization.arrayToDataTable([
       ["Label", "Value"],
       ["Weight", weight]
@@ -122,7 +137,6 @@
     chart.draw(data, options);
   }
 </script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 @endsection
 
 @section('content')
@@ -168,17 +182,17 @@
               </div>
             </div>
           </div>
-          <div class="coach">
+          <div class="coach" id="coach">
             @php $count = count($coach_motd) @endphp
             @if($count == 0)
-            <p class="alert alert-warning animated lightSpeedIn">No sweet without sweat. How about a walk?</p>
+            <p class="alert alert-warning animated">No sweet without sweat. How about a walk?</p>
             @else
             @foreach($coach_motd as $motd)
-            <p class="alert {{$motd[1]}} animated lightSpeedIn">{{$motd[0]}}</p>
+            <p class="alert {{$motd[1]}} animated">{{$motd[0]}}</p>
             @endforeach
             @endif
           </div>
-          <div class="coach-img animated bounceInUp"></div>
+          <div class="coach-img animated" id="coach-img"></div>
         </div>
       </div>
     </div>
