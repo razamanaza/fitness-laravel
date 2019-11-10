@@ -117,7 +117,8 @@ class HomeController extends Controller
   public function calendar()
   {
     $user = auth()->user();
-    $workouts = \App\Workout::where('user_id', $user->id)->get();
+    $workouts = $user->workouts;
+    $foods = $user->foods;
     $events = [];
     if ($workouts->count()) {
       foreach ($workouts as $workout) {
@@ -129,6 +130,22 @@ class HomeController extends Controller
           null,
           [
             'color' => $workout->workout_type->color,
+            'textColor' => 'white',
+          ]
+        );
+      }
+    }
+    if ($foods->count()) {
+      foreach ($foods as $food) {
+        $color = ($food->food_type->is_alcohol? '#91595A' : '#16171B');
+        $events[] = \Calendar::event(
+          $food->food_type->name . ": " . $food->calories . " cal",
+          true,
+          new \DateTime($food->date),
+          new \DateTime($food->date . '+1 day'),
+          null,
+          [
+            'color' => $color,
             'textColor' => 'white',
           ]
         );
