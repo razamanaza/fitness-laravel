@@ -184,4 +184,5 @@ class HomeController extends Controller
     }
     return view('stats', compact('totals', 'stats'));
   }
+
 }
