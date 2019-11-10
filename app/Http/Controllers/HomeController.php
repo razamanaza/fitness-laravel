@@ -144,4 +144,27 @@ class HomeController extends Controller
     $food_types = FoodType::all();
     return view('recordadd', compact('workout_types', 'food_types'));
   }
+
+  public function stats() {
+    $user = auth()->user();
+    $totals = [];
+    $workouts = $user->workouts();
+    $totals['kilometers'] = $workouts->sum('distance') / 1000;
+    $totals['count'] = $workouts->count();
+    $totals['burnt'] = $workouts->sum('calories');
+    $totals['consumed'] = $user->foods->sum('calories');
+    $totals['hours'] = $workouts->sum('duration') / 60;
+    $totals['drinks'] = $user->foods->sum('drinks');
+    $workouts = $user->workouts->groupBy('workout_type_id');
+    $stats = [];
+    foreach($workouts as $workout_id => $workoutcoll) {
+      $name = WorkoutType::find($workout_id)->name;
+      $count = $workoutcoll->count();
+      $distance = $workoutcoll->sum('distance') / 1000;
+      $duration = round($workoutcoll->sum('duration') / 60);
+      $burnt = round($workoutcoll->sum('calories'));
+      $stats[$name] = ['count' => $count, 'distance' => $distance, 'duration' => $duration, 'burnt' => $burnt];
+    }
+    return view('stats', compact('totals', 'stats'));
+  }
 }

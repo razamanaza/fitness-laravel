@@ -1,5 +1,5 @@
 <h2>My targets</h2>
-<a href="{{ route('target.create') }}" class="btn btn-primary new-target">New Target</a>
+<a href="{{ url('targets/create') }}" class="btn btn-primary new-target">New Target</a>
 
 <ul class="list-group list-group-flush">
   @foreach($targets as $target)

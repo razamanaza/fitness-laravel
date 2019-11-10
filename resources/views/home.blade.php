@@ -122,6 +122,7 @@
     chart.draw(data, options);
   }
 </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 @endsection
 
 @section('content')
@@ -170,13 +171,14 @@
           <div class="coach">
             @php $count = count($coach_motd) @endphp
             @if($count == 0)
-            <p class="alert alert-warning">No sweet without sweat. How about a walk?</p>
+            <p class="alert alert-warning animated lightSpeedIn">No sweet without sweat. How about a walk?</p>
             @else
             @foreach($coach_motd as $motd)
-            <p class="alert {{$motd[1]}}">{{$motd[0]}}</p>
+            <p class="alert {{$motd[1]}} animated lightSpeedIn">{{$motd[0]}}</p>
             @endforeach
             @endif
           </div>
+          <div class="coach-img animated bounceInUp"></div>
         </div>
       </div>
     </div>

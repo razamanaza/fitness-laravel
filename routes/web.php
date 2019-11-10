@@ -20,16 +20,16 @@ Route::get('/success', function(){
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index');
 
-Route::get('/data', 'HomeController@index')->name('data');
+Route::get('/stats', 'HomeController@stats');
 Route::get('/calendar', 'HomeController@calendar');
 Route::get('/recordadd', 'HomeController@recordAdd');
-Route::get('/types', 'HomeController@types')->name('types');
+Route::get('/types', 'HomeController@types');
 
 
-Route::get('/targets/create', 'TargetController@create')->name('target.create');
-Route::post('/targets', 'TargetController@store')->name('target.store');
+Route::get('/targets/create', 'TargetController@create');
+Route::post('/targets', 'TargetController@store');
 Route::delete('/targets/{target}', 'TargetController@destroy');
 
 Route::resource('workout-types', 'WorkoutTypeController');

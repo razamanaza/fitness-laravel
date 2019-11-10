@@ -41,10 +41,22 @@
   margin-left: 220px;
   margin-bottom: -20px;
 }
-.dashboard {
+.coach-img {
   background-image: url("../img/coach.jpg");
   background-position: left bottom;
   background-repeat: no-repeat;
+  width: 225px;
+  height: 250px;
+  left: 0;
+  bottom: 0;
+  position: absolute;
+}
+.dashboard {
+  overflow: hidden;
+}
+.lightSpeedIn, .bounceInUp {
+  animation-duration: 4s;
+  animation-delay: 5s;
 }
 .tab-content {
   margin-top: 20px;
@@ -74,4 +86,18 @@
 }
 .hide {
   display: none;
+}
+.totals img {
+  margin-bottom: 20px;
+  width: 120px;
+  height: 120px;
+}
+.totals .number {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 0;
+}
+.table .thead-dark th {
+  background-color: #8c0003;
+  border-color: #8c0003;
 }
