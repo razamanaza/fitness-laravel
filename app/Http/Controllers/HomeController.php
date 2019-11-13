@@ -137,7 +137,7 @@ class HomeController extends Controller
     }
     if ($foods->count()) {
       foreach ($foods as $food) {
-        $color = ($food->food_type->is_alcohol? '#91595A' : '#16171B');
+        $color = ($food->food_type->is_alcohol? '#B7392D' : '#16171B');
         $events[] = \Calendar::event(
           $food->food_type->name . ": " . $food->calories . " cal",
           true,

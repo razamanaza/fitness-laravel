@@ -47,6 +47,9 @@ class RecordController extends Controller
       'calories' => ['required', 'integer'],
     ]);
     $data['user_id'] = auth()->user()->id;
+    if ($request->denomination != 'calories') {
+      $data['calories'] = round($data['calories'] / 4,184);
+    }
     if(!$data['drinks']) {
       $data['drinks'] = 0;
     }
