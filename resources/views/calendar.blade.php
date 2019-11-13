@@ -15,9 +15,6 @@
         <div class="card-header">Calendar</div>
 
         <div class="card-body types">
-          <div id="spinner" class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
-          </div>
           {!! $calendar->calendar() !!}
         </div>
       </div>

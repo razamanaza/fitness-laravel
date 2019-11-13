@@ -126,7 +126,7 @@ class HomeController extends Controller
           $workout->workout_type->name . ": " . $workout->duration . " min",
           true,
           new \DateTime($workout->date),
-          new \DateTime($workout->date . '+1 day'),
+          null,//new \DateTime($workout->date . '+1 day'),
           null,
           [
             'color' => $workout->workout_type->color,
@@ -142,7 +142,7 @@ class HomeController extends Controller
           $food->food_type->name . ": " . $food->calories . " cal",
           true,
           new \DateTime($food->date),
-          new \DateTime($food->date . '+1 day'),
+          null,//) new \DateTime($food->date . '+1 day',
           null,
           [
             'color' => $color,
