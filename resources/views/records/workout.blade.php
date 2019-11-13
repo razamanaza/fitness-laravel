@@ -23,9 +23,7 @@
       <option value="">&nbsp;</option>
       @foreach($workout_types as $workout_type)
       <option
-        value="{{$workout_type->id}}"
-        {{ $workout_type->id == old('workout_type_id') ? 'selected="selected"' : '' }}
-      >
+        value="{{$workout_type->id}}">
         {{$workout_type->name}}
       </option>
       @endforeach
@@ -38,7 +36,6 @@
       id="workout-distance"
       class="form-control {{ $errors->has('distance') ? 'is-invalid' : '' }}"
       name="distance"
-      value="{{ old('distance') }}"
     >
   </div>
   <div class="form-group">

@@ -164,14 +164,28 @@ class HomeController extends Controller
 
   public function stats() {
     $user = auth()->user();
+    $now = new \DateTime('now');
     $totals = [];
+    $records = [];
     $workouts = $user->workouts();
-    $totals['kilometers'] = $workouts->sum('distance') / 1000;
+    $totals['distance'] = $workouts->sum('distance') / 1000;
     $totals['count'] = $workouts->count();
-    $totals['burnt'] = $workouts->sum('calories');
-    $totals['consumed'] = $user->foods->sum('calories');
-    $totals['hours'] = $workouts->sum('duration') / 60;
-    $totals['drinks'] = $user->foods->sum('drinks');
+    $totals['calories'] = $workouts->sum('calories');
+    $totals['duration'] = round($workouts->sum('duration') / 60);
+
+    $records ['consumed'] = $user->foods->sum('calories');
+    $records ['longestWorkout'] = 0;
+    $records ['daysInRow'] = 0;
+    $records['longestWorkout'] = $workouts->max('duration');
+    $daysInRow = 0;
+    $currentDay = new \DateTime($workouts->first()->date);
+    while($currentDay <= $now) {
+      $duration = $workouts->where('date', $currentDay)->sum('duration');
+      $daysInRow = $duration !== 0 ? $daysInRow + 1 : 0;
+      $records['daysInRow'] = $records['daysInRow'] < $daysInRow ? $daysInRow : $records['daysInRow'];
+      $currentDay->modify('+1 day');
+    }
+
     $workouts = $user->workouts->groupBy('workout_type_id');
     $stats = [];
     foreach($workouts as $workout_id => $workoutcoll) {
@@ -182,7 +196,7 @@ class HomeController extends Controller
       $burnt = round($workoutcoll->sum('calories'));
       $stats[$name] = ['count' => $count, 'distance' => $distance, 'duration' => $duration, 'burnt' => $burnt];
     }
-    return view('stats', compact('totals', 'stats'));
+    return view('stats', compact('totals', 'stats', 'records'));
   }
 
 }

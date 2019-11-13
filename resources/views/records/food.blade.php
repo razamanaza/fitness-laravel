@@ -23,9 +23,7 @@
       <option value="">&nbsp;</option>
       @foreach($food_types as $food_type)
       <option
-        value="{{$food_type->id}}"
-        {{ $food_type->id == old('food_type_id') ? 'selected="selected"' : '' }}
-      >
+        value="{{$food_type->id}}">
         {{$food_type->name}}
       </option>
       @endforeach
@@ -38,7 +36,6 @@
       id="food-drinks"
       class="form-control {{ $errors->has('drinks') ? 'is-invalid' : '' }}"
       name="drinks"
-      value="{{ old('drinks') }}"
     >
   </div>
 

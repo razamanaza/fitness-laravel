@@ -204,3 +204,10 @@ a {
 #coach {
   position: relative;
 }
+.stats th {
+  font-weight: normal;
+}
+.stats-tfoot th {
+  font-weight: bold;
+  background-color: #ddd;
+}
