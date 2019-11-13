@@ -9,3 +9,4 @@ php artisan db:seed --class=MoodsTableSeeder
 php artisan db:seed --class=WeightsTableSeeder
 php artisan db:seed --class=FoodTypesTableSeeder
 php artisan db:seed --class=FoodsTableSeeder
+
