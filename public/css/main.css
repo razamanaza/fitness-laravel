@@ -45,6 +45,9 @@ a {
   background-color: #8c0003;
   color: white;
 }
+.charts {
+  min-height: 626px;
+}
 .chart {
   display: inline-block;
 }
