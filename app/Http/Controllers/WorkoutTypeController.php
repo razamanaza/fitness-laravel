@@ -40,7 +40,7 @@ class WorkoutTypeController extends Controller
   public function store(Request $request)
   {
     $data = request()->validate([
-      'name' => ['required', 'regex:/^(\d|\w|\s|-)+$/i'],
+      'name' => ['required', 'regex:/^(\d|\w|\s|-)+$/i', 'unique:workout_types,name'],
       'color' => ['required', 'regex:/^#(\d|\w){6}$/i'],
     ]);
     $data['has_distance'] = ($request->has_distance == "true" ? true : false);

@@ -40,7 +40,7 @@ class FoodTypeController extends Controller
   public function store(Request $request)
   {
     $data = request()->validate([
-      'name' => ['required', 'regex:/^(\d|\w|\s|-)+$/i'],
+      'name' => ['required', 'regex:/^(\d|\w|\s|-)+$/i', 'unique:food_types,name'],
     ]);
     $data['is_alcohol'] = ($request->is_alcohol == "true" ? true : false);
     FoodType::create($data);
