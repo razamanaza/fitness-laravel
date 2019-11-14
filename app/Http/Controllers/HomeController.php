@@ -32,7 +32,9 @@ class HomeController extends Controller
     //Get all user's targets
     $targets = $user->targets->all();
 
-    //Data for Weight Index Chart
+    /**
+     * Data for the Weight Index Chart
+     */
     $weight = $user->weights->last()->weight;
     $pheight = pow($user->height / 100, 2);
     $weight_borders = [
@@ -42,10 +44,14 @@ class HomeController extends Controller
       'red' => round(40 * $pheight)
     ];
 
-    //Data for Mood Index
+    /**
+     * Data for Mood Index
+     */
     $mood = $user->moods->last()->mood;
 
-    //Data for activityChart
+    /**
+     * Data for Activities Proportion chart
+     */
     $temp = $user->workouts->countBy('workout_type_id');
     $workouts = [["Activity", "Count"]];
     foreach ($temp as $workout_id => $count) {
@@ -53,10 +59,12 @@ class HomeController extends Controller
       array_push($workouts, [$workout, $count]);
     }
 
-    //Data for activitiesByDays
+    /**
+     * Data for Activities Comparison chart
+     */
     $date = new \DateTime('now');
     $now = new \DateTime('now');
-    $date->modify('-7 days');
+    $date->modify('-14 days');
     $activities = [["Days", "Average time", "Your time"]];
     $activities_sum = 0;
     while ($date <= $now) {
@@ -67,7 +75,9 @@ class HomeController extends Controller
       $date->modify('+1 day');
     }
 
-    //Data for caloriesTrend
+    /**
+     * Data for Excessive Calories Consumption chart
+     */
     $date = new \DateTime('now');
     $now = new \DateTime('now');
     $date->modify('-7 days');
@@ -84,7 +94,16 @@ class HomeController extends Controller
       $date->modify('+1 day');
     }
 
-    //Coach messages
+    /**
+     * Data for Sleep Index chart
+     */
+    $date = new \DateTime('now');
+    $date->modify('-7 days');
+    $sleep = $user->sleeps->where('date', '>=', $date->format('Y-m-d'))->avg('minutes') / 60;
+
+    /**
+     * Coach messages
+     */
     $coach_motd = [];
     if ($activities_sum > 120) {
       array_push($coach_motd, ["You've done well this week. Dwayne envy your results!!!", "alert-success"]);
@@ -99,7 +118,7 @@ class HomeController extends Controller
       array_push($coach_motd, ["You drink too much. Wanna talk about it?", "alert-danger"]);
     }
 
-    return view('home', compact('weight', 'mood', 'targets', 'coach_motd'))
+    return view('home', compact('weight', 'mood', 'targets', 'sleep', 'coach_motd'))
       ->with('weight_borders', json_encode($weight_borders))
       ->with('workouts', json_encode($workouts))
       ->with('activities', json_encode($activities))
@@ -126,7 +145,7 @@ class HomeController extends Controller
           $workout->workout_type->name . ": " . $workout->duration . " min",
           true,
           new \DateTime($workout->date),
-          null,//new \DateTime($workout->date . '+1 day'),
+          null,
           null,
           [
             'color' => $workout->workout_type->color,
@@ -142,7 +161,7 @@ class HomeController extends Controller
           $food->food_type->name . ": " . $food->calories . " cal",
           true,
           new \DateTime($food->date),
-          null,//) new \DateTime($food->date . '+1 day',
+          null,
           null,
           [
             'color' => $color,

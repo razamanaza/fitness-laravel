@@ -25,6 +25,7 @@ $( document ).ready(function() {
   google.charts.setOnLoadCallback(activityChart);
   google.charts.setOnLoadCallback(weightIndexChart);
   google.charts.setOnLoadCallback(moodIndexChart);
+  google.charts.setOnLoadCallback(sleepIndexChart);
   google.charts.setOnLoadCallback(activitiesByDays);
   google.charts.setOnLoadCallback(caloriesTrend);
 
@@ -33,8 +34,8 @@ $( document ).ready(function() {
     var data = google.visualization.arrayToDataTable(workouts);
 
     var options = {
-      width: 400,
-      height: 200
+      height: 300,
+      width: 330
     };
 
     var chart = new google.visualization.PieChart(
@@ -95,12 +96,38 @@ $( document ).ready(function() {
     chart.draw(data, options);
   }
 
+  function sleepIndexChart() {
+    var sleep = <?php echo $sleep; ?>;
+    var data = google.visualization.arrayToDataTable([
+      ["Label", "Value"],
+      ["Sleep", sleep]
+    ]);
+
+    var options = {
+      width: 300,
+      height: 200,
+      redFrom: 0,
+      redTo: 6,
+      yellowFrom: 6,
+      yellowTo: 8,
+      greenFrom: 8,
+      greenTo: 12,
+      max: 20
+    };
+
+    var chart = new google.visualization.Gauge(
+      document.getElementById("sleepIndex")
+    );
+    chart.draw(data, options);
+  }
+
   function activitiesByDays() {
     var activities = <?php echo $activities; ?>;
     var data = google.visualization.arrayToDataTable(activities);
 
     var options = {
-      height: 200,
+      height: 400,
+      width: 1000
     };
 
     var chart = new google.charts.Bar(
@@ -128,7 +155,8 @@ $( document ).ready(function() {
           opacity: 0.3
         }
       },
-      height: 300
+      height: 300,
+      width: 650
     };
 
     var chart = new google.visualization.LineChart(
@@ -158,27 +186,33 @@ $( document ).ready(function() {
           </div>
           <div class="charts">
             <div class="row">
-              <div class="col-md-3 text-center">
+              <div class="col-md-4 text-center">
                 <div id="weightIndex" class="chart"></div>
                 <h2>Weight Index</h2>
               </div>
-              <div class="col-md-6 text-center">
-                <div id="activities" class="chart"></div>
-                <h2>Activities Proportion</h2>
+              <div class="col-md-4 text-center">
+                <div id="sleepIndex" class="chart"></div>
+                <h2>Sleep Index</h2>
               </div>
-              <div class="col-md-3 text-center">
+              <div class="col-md-4 text-center">
                 <div id="moodIndex" class="chart"></div>
                 <h2>Mood Index</h2>
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6 text-center">
-                <div id="activitiesByDays" class="chart"></div>
-                <h2>Activities Comparison</h2>
+              <div class="col-md-4 text-center">
+                <div id="activities" class="chart"></div>
+                <h2>Activities Proportion</h2>
               </div>
-              <div class="col-md-6 text-center">
+              <div class="col-md-8 text-center">
                 <div id="caloriesTrend" class="chart"></div>
                 <h2>Excessive Calories Consumption</h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <div id="activitiesByDays" class="chart"></div>
+                <h2>Activities Comparison</h2>
               </div>
             </div>
           </div>
