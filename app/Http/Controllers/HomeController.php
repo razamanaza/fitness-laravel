@@ -99,7 +99,7 @@ class HomeController extends Controller
      */
     $date = new \DateTime('now');
     $date->modify('-7 days');
-    $sleep = $user->sleeps->where('date', '>=', $date->format('Y-m-d'))->avg('minutes') / 60;
+    $sleep = number_format((float)$user->sleeps->where('date', '>=', $date->format('Y-m-d'))->avg('minutes') / 60, 1, '.', '');
 
     /**
      * Coach messages
