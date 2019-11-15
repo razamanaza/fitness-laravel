@@ -35,7 +35,7 @@ class HomeController extends Controller
     /**
      * Data for the Weight Index Chart
      */
-    $weight = $user->weights->last()->weight;
+    $weight = $user->weights->count() ? $user->weights->last()->weight : 0;
     $pheight = pow($user->height / 100, 2);
     $weight_borders = [
       'green_low' => round(18.5 * $pheight),
@@ -47,7 +47,7 @@ class HomeController extends Controller
     /**
      * Data for Mood Index
      */
-    $mood = $user->moods->last()->mood;
+    $mood = $user->moods->count() ? $user->moods->last()->mood : 0;
 
     /**
      * Data for Activities Proportion chart
@@ -197,7 +197,7 @@ class HomeController extends Controller
     $records ['daysInRow'] = 0;
     $records['longestWorkout'] = $workouts->max('duration');
     $daysInRow = 0;
-    $currentDay = new \DateTime($workouts->first()->date);
+    $currentDay = $workouts->count() ? new \DateTime($workouts->first()->date) : new \DateTime('now') ;
     while($currentDay <= $now) {
       $duration = $workouts->where('date', $currentDay)->sum('duration');
       $daysInRow = $duration !== 0 ? $daysInRow + 1 : 0;
